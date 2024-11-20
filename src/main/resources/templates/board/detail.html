@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultrap.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+
+<div layout:fragment="content">
+    <div class="container-md">
+        <h1>Board Detail Page [[${boardDTO.bno}]]</h1>
+        <hr>
+        <form action="/board/modify" method="post" id="modForm">
+            <input type="hidden" name="bno" th:value="${boardDTO.bno}">
+            <div class="mb-3">
+                <label for="t" class="form-label">title</label>
+                <input type="text"
+                       class="form-control" id="t" name="title" th:value="${boardDTO.title }"
+                       readonly="readonly">
+            </div>
+            <div class="mb-3">
+                <label for="w" class="form-label">writer</label>
+                <input type="text"
+                       class="form-control" id="w" name="writer" th:value="${boardDTO.writer }"
+                       readonly="readonly"> <span class="badge text-bg-info">[[${boardDTO.regAt }]]</span>
+                <br> <span class="badge text-bg-info">[[${boardDTO.modAt }]]</span>
+            </div>
+            <div class="mb-3">
+                <label for="c" class="form-label">content</label>
+                <textarea class="form-control" id="c" rows="3" name="content"
+                          readonly="readonly">[[${boardDTO.content }]]</textarea>
+            </div>
+            <button type="button" id="listBtn" class="btn btn-info">List</button>
+            <button type="button" id="modBtn" class="btn btn-primary">Modify</button>
+            <a th:href="@{/board/delete(bno=${boardDTO.bno})}"><button type="button" id="delBtn" class="btn btn-danger">Delete</button></a>
+        </form>
+    </div>
+
+    <script th:src="@{/js/boardDetail.js}"></script>
+
+</div>
