@@ -117,7 +117,7 @@ async function deleteCommentToServer(cno) {
         const resp = await fetch("/comment/delete/"+ cno) 
         const result = await resp.text();
         return result;
-        
+
     } catch(error){
         console.log(error);
     }
