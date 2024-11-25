@@ -2,7 +2,8 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultrap.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/layout}">
+      layout:decorate="~{layout/layout}"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <div layout:fragment="content">
     <div class="container-md">
@@ -71,7 +72,7 @@
     <!--/* post */-->
     <th:block sec:authorize="isAuthenticated()">
         <div class="input-group mb-3">
-            <span class="input-group-text" id="cmtWriter" >NickName</span>
+            <span class="input-group-text" id="cmtWriter" th:text="${#authentication.getPrincipal().userDTO.nickName}" ></span>
             <input type="text"  id="cmtText" class="form-control" placeholder="Add Comment" aria-label="Comment" aria-describedby="basic-addon1">
             <button type="button" id="cmtAddBtn"  class="btn btn-outline-success">post</button>
         </div>
