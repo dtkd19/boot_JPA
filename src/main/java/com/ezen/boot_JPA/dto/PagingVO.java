@@ -1,5 +1,6 @@
 package com.ezen.boot_JPA.dto;
 
+import com.ezen.boot_JPA.entity.Board;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -14,6 +15,8 @@ public class PagingVO {
     private int endPage;
     private boolean hasPrev, hasNext;
     private int pageNo;
+    private String type;
+    private String keyword;
 
     public PagingVO(Page<BoardDTO> list, int pageNo){
         this.pageNo = pageNo+1;
@@ -26,7 +29,12 @@ public class PagingVO {
         }
         this.hasPrev = this.pageNo > 10;
         this.hasNext = this.endPage < this.totalPage;
+    }
 
+    public PagingVO(Page<BoardDTO> list, int pageNo, String type , String keyword){
+        this(list,pageNo);
+        this.type = type;
+        this.keyword = keyword;
     }
 
 

@@ -80,7 +80,7 @@ public interface BoardService {
 
     void delete(Long bno);
 
-    Page<BoardDTO> getList(int pageNo);
+    Page<BoardDTO> getList(int pageNo, String type, String keyword);
 
     Long insert(BoardFileDTO boardFileDTO);
 

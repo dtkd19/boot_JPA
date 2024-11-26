@@ -8,6 +8,31 @@
     <div class="container-md">
         <h1>Board List Page</h1>
         <hr>
+        <div class ="container-fluid">
+            <form action="/board/list" class="d-flex" role="search" >
+                <select class="form-select form-select-sm" id="inputGroupSelect01" name="type" style="width: 70%; margin-right: 20px">
+                    <option th:selected="${pgvo.type == null ? true : false}" >Choose...</option>
+                    <option th:value="t" th:selected="${pgvo.type == 't' ? true : false}" >title</option>
+                    <option th:value="w" th:selected="${pgvo.type == 'w' ? true : false}">writer</option>
+                    <option th:value="c" th:selected="${pgvo.type == 'c' ? true : false}">content</option>
+                    <option th:value="tw" th:selected="${pgvo.type == 'tw' ? true : false}" >title + writer</option>
+                    <option th:value="wc" th:selected="${pgvo.type == 'wc' ? true : false}">writer + content</option>
+                    <option th:value="tc" th:selected="${pgvo.type == 'tc' ? true : false}">title + content</option>
+                    <option th:value="twc" th:selected="${pgvo.type == 'twc' ? true : false}">all</option>
+                </select>
+
+                <input class="form-control me-2" name="keyword" type="search" placeholder="Search..." aria-label="Search" th:value="${pgvo.keyword }" >
+                <input type="hidden" name="pageNo" value="1">
+                <button type="submit" class="btn btn-success position-relative">
+                    Search
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        [[${list.totalElements }]]
+                        <span class="visually-hidden">unread messages</span>
+                    </span>
+                </button>
+
+            </form>
+        </div>
 
         <table class="table table-hover">
             <thead>
@@ -33,17 +58,17 @@
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
                 <li class="page-item"  th:if="${pgvo.hasPrev}">
-                    <a class="page-link" th:href="@{/board/list(pageNo=${pgvo.startPage-1})}" aria-label="Previous">
+                    <a class="page-link" th:href="@{/board/list(pageNo=${pgvo.startPage-1},type=${pgvo.type},keyword=${pgvo.keyword})}" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
                 <th:block  th:each="i : ${#numbers.sequence(pgvo.startPage,pgvo.endPage)}">
                     <li class="page-item" th:classappend="${pgvo.pageNo eq i ? 'active' : '' }" >
-                        <a class="page-link" th:href="@{/board/list(pageNo=${i})}" >[[${i}]]</a>
+                        <a class="page-link" th:href="@{/board/list(pageNo=${i},type=${pgvo.type},keyword=${pgvo.keyword})}" >[[${i}]]</a>
                     </li>
                 </th:block>
                 <li class="page-item"  th:if="${pgvo.hasNext}" >
-                    <a class="page-link" aria-label="Next" th:href="@{/board/list(pageNo=${pgvo.endPage+1})}">
+                    <a class="page-link" aria-label="Next" th:href="@{/board/list(pageNo=${pgvo.endPage+1},type=${pgvo.type},keyword=${pgvo.keyword})}">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
